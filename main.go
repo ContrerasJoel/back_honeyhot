@@ -3,13 +3,17 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/ContrerasJoel/back_honeyhot/internal/product"
 	"github.com/gorilla/mux"
 )
 
 func main() {
-	port := "7071"
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "7071"
+	}
 
 	r := mux.NewRouter()
 
