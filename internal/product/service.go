@@ -48,3 +48,7 @@ func (s *Handler) DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]any{"result": "Producto eliminado correctamente"})
 
 }
+
+func (s *Handler) Test(w http.ResponseWriter, r *http.Request) {
+	json.NewEncoder(w).Encode(map[string]any{"test": true})
+}

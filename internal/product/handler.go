@@ -12,6 +12,7 @@ func NewHandler() *Handler {
 }
 
 func (s *Handler) Expose(r *mux.Router) {
+	r.HandleFunc("/api", s.Test).Methods("GET")
 	r.HandleFunc("/api/products", s.ReadProducts).Methods("GET")
 	r.HandleFunc("/api/product", s.CreateProduct).Methods("POST")
 	r.HandleFunc("/api/product/{id}", s.UpdateProduct).Methods("PUT")
