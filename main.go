@@ -8,10 +8,12 @@ import (
 	"os"
 
 	"github.com/ContrerasJoel/back_honeyhot/internal/product"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
 func main() {
+
 	url := "https://api.ipify.org?format=json"
 
 	resp, err := http.Get(url)
@@ -20,12 +22,12 @@ func main() {
 	}
 	defer resp.Body.Close()
 
-	conten, err := ioutil.ReadAll(resp.Body)
+	content, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	log.Println(string(conten))
+	log.Println(string(content))
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -33,15 +35,18 @@ func main() {
 	}
 
 	r := mux.NewRouter()
+	headers := handlers.AllowedHeaders([]string{"X-Requests-With", "Content-Type", "Authorization"})
+	methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE"})
+	origins := handlers.AllowedOrigins([]string{"*"})
 
 	product.NewHandler().Expose(r)
 
 	srv := &http.Server{
 		Addr:    "0.0.0.0:" + port,
-		Handler: r,
+		Handler: handlers.CORS(headers, methods, origins)(r),
 	}
 
-	log.Println("Escuchando en el puerto " + srv.Addr)
+	log.Printf("Escuchando en el puerto %s", srv.Addr)
 	srv.ListenAndServe()
 
 }
