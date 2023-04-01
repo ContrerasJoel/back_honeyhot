@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -10,6 +12,21 @@ import (
 )
 
 func main() {
+	url := "https://api.ipify.org?format=json"
+
+	resp, err := http.Get(url)
+	if err != nil {
+		fmt.Println(err)
+	}
+	defer resp.Body.Close()
+
+	conten, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	log.Println(string(conten))
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "7071"
