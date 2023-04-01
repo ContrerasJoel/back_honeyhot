@@ -9,7 +9,7 @@ import (
 )
 
 func GetCollection(collection string) *mongo.Collection {
-	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
+	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb+srv://root:1234qwas@atlascluster.2wzvams.mongodb.net/?retryWrites=true&w=majority"))
 	if err != nil {
 		panic(err.Error())
 	}
