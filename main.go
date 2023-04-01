@@ -37,11 +37,11 @@ func main() {
 	product.NewHandler().Expose(r)
 
 	srv := &http.Server{
-		Addr:    ":" + port,
+		Addr:    "0.0.0.0:" + port,
 		Handler: r,
 	}
 
-	log.Println("Escuchando en el puerto http://localhost:" + port)
+	log.Println("Escuchando en el puerto " + srv.Addr)
 	srv.ListenAndServe()
 
 }
