@@ -50,5 +50,5 @@ func (s *Handler) DeleteProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Handler) Test(w http.ResponseWriter, r *http.Request) {
-	json.NewEncoder(w).Encode(map[string]any{"test": true})
+	json.NewEncoder(w).Encode(map[string]any{"test for new deploy": true})
 }
